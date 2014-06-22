@@ -350,13 +350,7 @@ write.csv(bigData,"bigData.csv")
 write.table(tidyset,"tidyset.txt",sep=",",eol = "\n", na = "NA",
         col.names = TRUE,row.names=FALSE)
 
-#===============================================================================
 
-# finally output the tidydataset
-#
-head(tidyset,n=10)
-str(tidyset)
-summary(tidyset)
 
 
 
