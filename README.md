@@ -312,8 +312,19 @@ rownames(trainActivity) <- trainRowLabels
 #
 
 
-merge(testActivity,activityLabel,by="activityID", sort=FALSE) -> testActivity
-merge(trainActivity,activityLabel,by="activityID",sort=FALSE) ->trainActivity
+
+l<- activityLabel
+for ( i in  seq_len(nrow(testActivity)))  {
+  testActivity$activityName[i] <- as.character(l[l$activityID ==  testActivity$activityID[i],]$activityName)
+}
+
+for ( i in  seq_len(nrow(trainActivity)))  {
+  trainActivity$activityName[i] <- as.character(l[l$activityID == trainActivity$activityID[i],]$activityName)
+}
+
+trainActivity1 <- trainActivity
+testActivity1 <- testActivity
+
 
 ```
 the merge to get the activity label for corresponding ID, **SORTING** is disabled to ensure no auto sorting is performed. 

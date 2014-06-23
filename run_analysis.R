@@ -192,9 +192,12 @@ colnames(trainFeatures) <- labelsList
 testActivity <- read.table("./data/test/y_test.txt")
 trainActivity <- read.table("./data/train/y_train.txt")
 
+
+
 colnames(testActivity) <- c("activityID")
 colnames(trainActivity) <- c("activityID")
 
+t <- trainActivity
 
 #-----------------------------------------------------------------------
 #       6) read the activity ID table fort "training" and "testing" 
@@ -248,9 +251,23 @@ rownames(trainActivity) <- trainRowLabels
 #
 
 
-merge(testActivity,activityLabel,by="activityID", sort=FALSE) -> testActivity
-merge(trainActivity,activityLabel,by="activityID",sort=FALSE) ->trainActivity
 
+
+# replace ID with the labels
+#
+
+
+l<- activityLabel
+for ( i in  seq_len(nrow(testActivity)))  {
+  testActivity$activityName[i] <- as.character(l[l$activityID ==  testActivity$activityID[i],]$activityName)
+}
+
+for ( i in  seq_len(nrow(trainActivity)))  {
+  trainActivity$activityName[i] <- as.character(l[l$activityID == trainActivity$activityID[i],]$activityName)
+}
+
+trainActivity1 <- trainActivity
+testActivity1 <- testActivity
 
 
 #------------------------------------------------------------------------------
@@ -259,8 +276,8 @@ merge(trainActivity,activityLabel,by="activityID",sort=FALSE) ->trainActivity
 #
 
 
-mtest <- cbind(testFeatures,testSubject,testActivity )
-mtrain <- cbind(trainFeatures,trainSubject,trainActivity )
+mtest <- cbind(testFeatures,testSubject,testActivity1 )
+mtrain <- cbind(trainFeatures,trainSubject,trainActivity1 )
 
 #------------------------------------------------------------------------------
 #       9)  horizontally bind using rbind the training table and test table to 
