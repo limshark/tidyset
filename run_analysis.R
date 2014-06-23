@@ -352,7 +352,7 @@ write.table(tidyset,"tidyset.txt",sep=",",eol = "\n", na = "NA",
 
 
 
-
+tidyset
 
 
 
